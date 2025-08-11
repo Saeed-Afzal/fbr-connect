@@ -3,6 +3,7 @@ import { Layout, Form, Input, Button, Typography, message } from "antd";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import { BASEURL } from "../constant/config";
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
@@ -21,7 +22,7 @@ const Login = () => {
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const res = await axios.post("http://172.16.0.69:8003/users/login", values);
+      const res = await axios.post(`${BASEURL}users/login`, values);
       login(res.data.user, res.data.token);
       message.success("Login successful!");
       navigate("/dashboard");

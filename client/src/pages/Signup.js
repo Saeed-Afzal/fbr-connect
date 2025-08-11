@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Layout, Form, Input, Button, Typography, message, Spin } from "antd";
 import { useNavigate,Link  } from "react-router-dom";
 import axios from "axios";
+import { BASEURL } from "../constant/config";
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
@@ -21,7 +22,7 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post("http://172.16.0.69:8003/users/register", values); // 🔹 API endpoint
+      const res = await axios.post(`${BASEURL}users/register`, values); // 🔹 API endpoint
       message.success("Registration successful! Please login.");
       navigate("/login");
     } catch (err) {

@@ -20,6 +20,7 @@ import axios from "axios";
 import { AddRecordForm } from "../components/AddRecordForm";
 import { jwtDecode } from "jwt-decode";
 import PendingApproval from "../components/PendingApproval";
+import { BASEURL } from "../constant/config";
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
@@ -89,7 +90,7 @@ const Dashboard = () => {
         const token = localStorage.getItem("token");
         if (!token) return;
 
-        const res = await axios.get("http://172.16.0.69:8003/users/setup", {
+        const res = await axios.get(`${BASEURL}users/setup`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -129,7 +130,7 @@ const Dashboard = () => {
   const handleAddRecord = async (values) => {
     setRecordLoading(true);
     try {
-      await axios.post("http://172.16.0.69:8003/records", values); // change API
+      await axios.post(`${BASEURL}records`, values); // change API
       api.success("Record added successfully!");
       setRecordModalOpen(false);
     } catch (err) {
@@ -170,7 +171,7 @@ const Dashboard = () => {
 
     try {
       await axios.put(
-        `http://172.16.0.69:8003/users/setup`,
+        `${BASEURL}users/setup`,
         {
           sandboxToken,
           productionToken,
@@ -207,7 +208,7 @@ const Dashboard = () => {
         const token = localStorage.getItem("token");
         if (!token) return;
 
-        const res = await axios.get("http://172.16.0.69:8003/invoice/records", {
+        const res = await axios.get(`${BASEURL}invoice/records`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setInvoices(res.data); // Store the fetched invoices
@@ -428,7 +429,7 @@ const Dashboard = () => {
               const token = localStorage.getItem("token");
               try {
                 const response = await axios.post(
-                  "http://172.16.0.69:8003/invoice/records",
+                  `${BASEURL}invoice/records`,
                   payload,
                   {
                     headers: { Authorization: `Bearer ${token}` },
@@ -438,7 +439,7 @@ const Dashboard = () => {
                 api.success({ message: "Record added successfully!" });
                 if (!token) return;
         
-                const res = await axios.get("http://172.16.0.69:8003/invoice/records", {
+                const res = await axios.get(`${BASEURL}invoice/records`, {
                   headers: { Authorization: `Bearer ${token}` },
                 });
                 setInvoices(res.data); // Store the fetched invoices

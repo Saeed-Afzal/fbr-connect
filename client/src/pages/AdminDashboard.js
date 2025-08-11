@@ -14,6 +14,7 @@ import {
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { BASEURL } from "../constant/config";
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
@@ -33,7 +34,7 @@ const AdminDashboard = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://172.16.0.69:8003/users", {
+      const res = await axios.get(`${BASEURL}users`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers(res.data);
@@ -51,7 +52,7 @@ const AdminDashboard = () => {
       const newStatus = currentStatus === "active" ? "pending" : "active";
 
       await axios.put(
-        `http://172.16.0.69:8003/users/${userId}/status`,
+        `${BASEURL}users/${userId}/status`,
         { status: newStatus },
         {
           headers: { Authorization: `Bearer ${token}` },

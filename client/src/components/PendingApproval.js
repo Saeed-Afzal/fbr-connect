@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
+import { BASEURL } from "../constant/config";
 
 const PendingApproval = ({ onLogout }) => {
   const { user, logout, setUser } = useContext(AuthContext); // assuming setUser is available to update user in context
@@ -18,7 +19,7 @@ const PendingApproval = ({ onLogout }) => {
         const token = localStorage.getItem("token");
         if (!token) return;
 
-        const res = await axios.get("http://172.16.0.69:8003/users/me", {
+        const res = await axios.get(`${BASEURL}users/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
